@@ -39,7 +39,7 @@ def stockpicker(prices)
  puts "You would have made the most profit if you had bought on day #{best_buy_day + 1} and sold on day #{best_sell_day + 1}."
  
  end
-end
+endk
 
 
 
