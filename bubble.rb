@@ -35,7 +35,8 @@ end
 
 
 
-bubble_sort([3,5,9,2,1])
+bubble_sort([3,50,9,2,10,3,1,7,12,6,4,22])
+bubble_sort([2,4,5,6])  
 
  
 
@@ -53,7 +54,7 @@ check_it = array.length - 1
 		inorder = true  
 		check_it.times do |i|
 			y =  yield(array[i], array[i+1])
-			if y == 1
+			if y == 1  #<=> returns that a > b
 				array[i], array[i+1] = array[i+1], array[i]        
 			
 				inorder = false                                      																												
@@ -64,7 +65,7 @@ check_it = array.length - 1
 			end              
 	 		
 	 		check_it -= 1      
-			puts "end of yield runthrough"
+			puts "end of yield runthrough"  #just to check
 
 			if check_it == 0			
 				sorted = true 
@@ -78,5 +79,6 @@ end
 
 
 bubble_sort_by([3,5,15,1,7,9])  { |left, right| left <=> right }
-bubble_sort_by([3,5,15,1,7,9])  { |left, right| right <=> left } 
-bubble_sort_by(["this", "wonder", "if", "you"])  { |left, right| left.length <=> right.length }
+bubble_sort_by([3,5,15,1,7,9])  { |left, right| right <=> left } #check reverse sorting
+bubble_sort_by(["this", "wonder", "if", "you"])  { |left, right| left.length <=> right.length } #check works sorting string length
+bubble_sort_by(["w","h","c","d","e","a","z","h","j"])  { |left, right| left <=> right } #check sorting alphabet
