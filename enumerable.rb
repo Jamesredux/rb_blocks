@@ -14,24 +14,73 @@ module Enumerable
 		end
 	end
 
+	def  my_select   #this is just a guess lol seems to work
+		selected = []
+		self.my_each do |i|
+			  if yield(i) 
+			  
+			 	selected.push(i)
+				end			 		
+	 	end
+	 	puts selected.inspect
+	end
+
+	def my_all?
+		all_pass = true
+		self.my_each do |i|
+			if yield(i) == false
+					all_pass = false
+			end
+			
+		end	
+		puts all_pass
+	end
+
+
+ def my_any?
+ 	 any_true = false
+ 	 	self.my_each do  |i|
+ 	 		if yield(i) == true
+ 	 			any_true = true
+ 	 		end
+ 	 	end
+ 	 	puts any_true
+ 	 end
+
+ 	def my_none?
+ 		none_true = true
+ 			self.my_each do |i|
+ 				if yield(i) == true
+ 					none_true = false
+ 				end
+ 			end
+
+ 			puts none_true
+
+
+ 	end 
+
+
 
 
 end
 
 
 
-[4,6,2].my_each do |x|
+[1,2,6].my_each do |x|
 	puts x
 end
 
-[6,7,9,3].my_each_with_index { |x, i| puts "the index is #{i} and the element is #{x}"}
+[1,2,6].my_each_with_index { |x, i| puts "the index is #{i} and the element is #{x}"}
 
-def testee(array)
-	billy = [5,5,5,5]
-	array.my_each_with_index do |x, index|
-			billy[index+1] = x
-	end
-	puts billy.inspect
-	end
 
-	testee([6,8,3,2])		
+[1,2,6].my_select do |item|
+	item%2 ==0
+end
+
+
+[1,2,6].my_all? { |x| x <= 6}
+
+[1,2,6].my_any? { |x| x == 6 }
+
+[1,2,6].my_none?  { |x| x == 6 }
