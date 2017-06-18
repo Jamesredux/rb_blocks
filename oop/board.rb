@@ -81,3 +81,26 @@ def initialize(name, squares)
 
 end
 
+def get_square
+	square_choice = gets.chomp
+	if valid_square(square_choice) == false
+		puts "Please choose a square a - i ."
+		 get_square
+			
+	elsif square_free(square_choice) == false
+		puts "That square has been taken please choose another."
+		get_square
+	end
+	square_choice
+end		
+
+
+def valid_square(chk_sq)
+	ok_squares = ['a','b','c','d','e','f','g','h','i']
+		if ok_squares.include?(chk_sq)
+			return true
+		else
+			return false
+		end	
+end
+
