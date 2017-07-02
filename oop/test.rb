@@ -3,7 +3,10 @@ class Mastermind
 	def initialize
 		@colors = ['blue', 'green', 'pink', 'red', 'white', 'yellow']
 		@code = []
-		@guess = ['r','r','g','y']
+		#@guess = ['r','r','g','y']
+		@past_guesses = ""
+		@guesses_left = 12
+		@solved = false
 	end
 
 	def create_code #creates random array of 4 letters representing the code.
@@ -14,13 +17,43 @@ class Mastermind
 			puts @code.inspect 
 	end
 
+	def play_game
+		while @guesses_left > 0 && @solved == false
+			puts "Please make your guess."
+			get_guess
+
+		end
+		if @guesses_left == 0
+		puts "You are out of guesses - GAME OVER"	
+		end	
+	end
+
+	def get_guess
+		user_guess = gets.chomp
+		#run check that this is right length and just characterss
+		this_guess = user_guess.chars.to_a #create new object  of guess class here
+		#guess_i = Guess.new(guess) would be what the creation of  the new object would be something like.
+		guess_number = 13 - @guesses_left
+		
+		@guesses_left -= 1
+		
+		
+		check_guess(this_guess)
+		#post_result(this_guess, guess_number)
+		#draw_grid
+		
+		
+		
+	end
+
 	def game
 		check
 	end
 
-	def check		
+	def check_guess(guess)		
 		a = @code.clone
-		b = @guess.clone
+		b = guess.clone
+		guess_count = 1
 		correct_guess = 0
 			for i in 0..a.length-1
 				if (a[i] == b[i])
@@ -39,12 +72,22 @@ class Mastermind
 					a[a.index(x)] = nil
 				end	
 			end	
-		puts a.inspect
-		puts b.inspect
-		puts @code.inspect
-		puts @guess.inspect
+		results = ""
+		correct_guess.times {results << "."}
+		good_guess.times {results << "^"}			
+		
 		puts "There are #{correct_guess} correct colors in the correct position."
-		puts good_guess
+		puts "There are #{good_guess} correct colors in the wrong position."
+		
+
+		@past_guesses << "#{guess.join(' ')}  |#{results}\n"
+		print @past_guesses
+		if correct_guess == 4
+			@solved = true
+			puts "The code has been broken"
+		end
+		
+		
 	end
 
 
@@ -54,7 +97,7 @@ end
 
 game = Mastermind.new
 game.create_code
-game.game
+game.play_game
 
 
 
