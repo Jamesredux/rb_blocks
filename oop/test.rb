@@ -3,52 +3,60 @@ class Mastermind
 	def initialize
 		@colors = ['blue', 'green', 'pink', 'red', 'white', 'yellow']
 		@code = []
-		#@guess = ['r','r','g','y']
 		@past_guesses = ""
 		@guesses_left = 12
 		@solved = false
 	end
 
+	def set_up
+		puts "Welcome to Mastermind. Can you crack the code? \n" 
+		50.times {print "+"}
+		print "\n"
+		print_header
+		puts "Guess the code or have the computer guess YOUR code. \nIf you want to create the code press 'c', otherwise just press enter..."
+		choose_game
+	end
+
+	def choose_game
+		input = gets.chomp.downcase
+		if input == "c"
+			puts "*** UNDER CONSTRUCTION ***"
+		else
+			self.play_game	
+		end
+	end
+
 	def create_code #creates random array of 4 letters representing the code.
 		4.times do 
-		pick = @colors.sample
-		@code<<pick[0]
+			pick = @colors.sample
+			@code<<pick[0]
 		end
-			puts @code.inspect 
+			
 	end
 
 	def play_game
-		while @guesses_left > 0 && @solved == false
-			puts "Please make your guess."
-			get_guess
-
-		end
-		if @guesses_left == 0
-		puts "You are out of guesses - GAME OVER"	
-		end	
+			create_code
+			while @guesses_left > 0 && @solved == false			
+				puts "Please make your guess."
+				get_guess
+				draw_grid if !@solved
+			end
+			
+			if @guesses_left == 0
+				puts "You are out of guesses - GAME OVER"	
+				puts "The code was #{@code.inspect}."
+			end	
 	end
 
 	def get_guess
 		user_guess = gets.chomp
 		#run check that this is right length and just characterss
 		this_guess = user_guess.chars.to_a #create new object  of guess class here
-		#guess_i = Guess.new(guess) would be what the creation of  the new object would be something like.
 		guess_number = 13 - @guesses_left
-		
 		@guesses_left -= 1
-		
-		
 		check_guess(this_guess)
-		#post_result(this_guess, guess_number)
-		#draw_grid
-		
-		
-		
 	end
 
-	def game
-		check
-	end
 
 	def check_guess(guess)		
 		a = @code.clone
@@ -75,19 +83,38 @@ class Mastermind
 		results = ""
 		correct_guess.times {results << "."}
 		good_guess.times {results << "^"}			
-		
-		puts "There are #{correct_guess} correct colors in the correct position."
-		puts "There are #{good_guess} correct colors in the wrong position."
-		
+				
 
 		@past_guesses << "#{guess.join(' ')}  |#{results}\n"
+		print_header
 		print @past_guesses
 		if correct_guess == 4
 			@solved = true
-			puts "The code has been broken"
+			puts "Congratulations! You have cracked the code."
 		end
 		
 		
+	end
+
+	def print_header
+		50.times {print "-"}
+		print "\n"
+		print "Colors: "
+		@colors.each do |x|
+			print "#{x[0]}: #{x}, "
+		end
+		2.times {print "\n"}
+		puts ".= Correct color and position.\n^= Correct color."
+		
+		
+	end
+
+	def draw_grid
+
+		@guesses_left.times do 
+			puts "_ _ _ _"
+		end
+		puts "*******"		
 	end
 
 
@@ -96,8 +123,8 @@ end
 
 
 game = Mastermind.new
-game.create_code
-game.play_game
+game.set_up
 
 
 
+#to do : computer solves code - create input check that can be used for code creation and guesses!!
