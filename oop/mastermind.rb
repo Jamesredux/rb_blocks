@@ -1,7 +1,10 @@
 class Mastermind
+	
+
 	attr_accessor :code
 	def initialize
 		@colors = ['blue', 'green', 'pink', 'red', 'white', 'yellow']
+		@colors_first_letter = []
 		@code = []
 		@past_guesses = ""
 		@guesses_left = 12
@@ -9,6 +12,7 @@ class Mastermind
 	end
 
 	def set_up
+		get_letters
 		puts "Welcome to Mastermind. Can you crack the code? \n" 
 		50.times {print "+"}
 		print "\n"
@@ -20,7 +24,8 @@ class Mastermind
 	def choose_game
 		input = gets.chomp.downcase
 		if input == "c"
-			puts "*** UNDER CONSTRUCTION ***"
+			get_code
+			#puts "*** UNDER CONSTRUCTION ***"
 		else
 			self.play_game	
 		end
@@ -38,7 +43,8 @@ class Mastermind
 			create_code
 			while @guesses_left > 0 && @solved == false			
 				puts "Please make your guess."
-				get_guess
+				this_guess = get_guess
+				check_guess(this_guess)
 				draw_grid if !@solved
 			end
 			
@@ -49,19 +55,51 @@ class Mastermind
 	end
 
 	def get_guess
-		user_guess = gets.chomp
-		#run check that this is right length and just characterss
-		this_guess = user_guess.chars.to_a #create new object  of guess class here
-		guess_number = 13 - @guesses_left
-		@guesses_left -= 1
-		check_guess(this_guess)
+		user_guess = gets.chomp.chars 
+		#guess_array = user_guess.chars 
+		if right_length(user_guess) == false 
+			puts "Please input 4 characters exactly"
+			user_guess = get_guess 
+		elsif valid_colors(user_guess) == false
+			puts "You did not choose a valid color, try again"
+			user_guess = get_guess
+					
+		end	
+
+		
+			
+		
+		puts user_guess.inspect
+		user_guess
+
+	end
+
+	def right_length(input)
+		if input.length == 4
+			true
+		else
+			false
+			
+		end
+		
+	end
+
+	def valid_colors(input)
+	  if	input.all? { |x| @colors_first_letter.include?(x) }
+			return true
+		else
+			return false
+		end	
 	end
 
 
-	def check_guess(guess)		
+
+
+	def check_guess(guess)	
+		@guesses_left -= 1	
 		a = @code.clone
 		b = guess.clone
-		guess_count = 1
+	#	guess_count = 1
 		correct_guess = 0
 			for i in 0..a.length-1
 				if (a[i] == b[i])
@@ -117,9 +155,46 @@ class Mastermind
 		puts "*******"		
 	end
 
+	def check_input
+		
+	end
+
+	def get_letters # i could just create an array of the first letter of each color but this makes it easier if I ever decide to change the colors
+
+		@colors.each do |x|
+			@colors_first_letter<<x[0]
+		end
+		
+		
+	end
+
+################################USER CHOOSE CODE ####################
+
+def get_code
+	puts "Choose the colors that make up your code."
+	print "Colors: "
+		@colors.each do |x|
+			print "#{x[0]}: #{x}, "
+
+		end	
+	puts "\n"	
+	puts "---------------------"	
+	user_code = gets.chomp.chars	
+	if right_length(user_code) == false 
+			puts "Please input 4 characters exactly"
+			user_code = get_code 
+		elsif valid_colors(user_code) == false
+			puts "You did not choose a valid color, try again"
+			user_code = get_code
+					
+	end		
+	puts user_code.inspect
+end
 
 
 end	
+
+
 
 
 game = Mastermind.new
