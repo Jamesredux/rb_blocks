@@ -1,4 +1,6 @@
 class Mastermind
+
+	#this  is the same as the first mastermind.rb but with computer to solve.
 	
 
 	attr_accessor :code
@@ -24,8 +26,9 @@ class Mastermind
 	def choose_game
 		input = gets.chomp.downcase
 		if input == "c"
-			
-			puts "*** UNDER CONSTRUCTION ***"
+			@code = get_code
+			computer_solve(@user_code)
+			#puts "*** UNDER CONSTRUCTION ***"
 		else
 			self.play_game	
 		end
@@ -56,6 +59,7 @@ class Mastermind
 
 	def get_guess
 		user_guess = gets.chomp.chars 
+		#guess_array = user_guess.chars 
 		if right_length(user_guess) == false 
 			puts "Please input 4 characters exactly"
 			user_guess = get_guess 
@@ -64,6 +68,11 @@ class Mastermind
 			user_guess = get_guess
 					
 		end	
+
+		
+			
+		
+		puts user_guess.inspect
 		user_guess
 
 	end
@@ -93,6 +102,7 @@ class Mastermind
 		@guesses_left -= 1	
 		a = @code.clone
 		b = guess.clone
+	#	guess_count = 1
 		correct_guess = 0
 			for i in 0..a.length-1
 				if (a[i] == b[i])
@@ -161,12 +171,56 @@ class Mastermind
 		
 	end
 
+################################USER CHOOSE CODE ####################
 
+def get_code
+	puts "Choose the colors that make up your code."
+	print "Colors: "
+		@colors.each do |x|
+			print "#{x[0]}: #{x}, "
+
+		end	
+	puts "\n"	
+	puts "---------------------"	
+	@user_code = gets.chomp.chars	
+	if right_length(@user_code) == false 
+			puts "Please input 4 characters exactly"
+			@user_code = get_code 
+		elsif valid_colors(@user_code) == false
+			puts "You did not choose a valid color, try again"
+			@user_code = get_code
+					
+	end		
+	puts @user_code.inspect
+	@user_code
+end
+
+def computer_solve(code)
+	while !@solved && @guesses_left > 0
+		computer_guess(code)
+	end
+
+
+
+end
+
+def computer_guess(code)
+	#12.times do
+		@comp_guess = create_code
+		check_guess(@comp_guess)
+		@guesses_left -= 1
+			#	draw_grid if !@solved
+	#end	
+end
 
 end	
 	
 
 
+
 game = Mastermind.new
 game.set_up
 
+
+
+#to do : computer solves code - create input check that can be used for code creation and guesses!!
