@@ -1,10 +1,11 @@
- def encrypt(text, shift)
+class CeasarCipher
+
+ def self.encrypt(text, shift)
  	 code = []  #create the array that  the code will be put in
    text = text.split('')  #turn string into array of characters
 
-#iterate through the characters "x" one character at a time
-
-   text.each do |x|  
+    #iterate through the characters "x" one character at a time
+    text.each do |x|  
      x = x.ord #convert to ascii
 
      	if (95..122).include?(x) #lower case letters
@@ -24,31 +25,28 @@
    		else    #leave all other characters eg space/!!? as they are
    	 		x = x.chr
    	 		code<<x
-     	end  #ends if/else
-   end   #ends iteration
-     code = code.join 
-   puts code	
-  end   #ends function
+     	end 
+    end  
+      code = code.join 
+      return code	
+    end  
+
+    def self.getinput       #function to get message and shift number from user
+      puts "What would you like encrypted mate?"
+      message = gets.chomp
+      puts "And what is the cypher key?"
+      input = STDIN.gets.chomp
+        while input.to_s != input.to_i.to_s
+          puts "Please enter a number"
+          input = STDIN.gets.chomp  
+        end
+         key = input.to_i
+      CeasarCipher::encrypt(message, key)
+    end
+  end
 
 
 
+#puts CeasarCipher::encrypt('abc', 3)
 
-puts "What would you like encrypted mate?"
-message = gets.chomp
-
-
-def getkey       #function to get shift amount and check it is a number
-	puts "And what is the cypher key?"
-		input = gets.chomp
-		while	input.to_s != input.to_i.to_s
-		puts "Please enter a number"
-		input = gets.chomp	
-			
-	end
-return input.to_i
-end
-
-
-key = getkey
-
-encrypt(message, key)
+#puts CeasarCipher::getinput
