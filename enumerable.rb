@@ -22,7 +22,7 @@ module Enumerable
 			 	selected.push(i)
 				end			 		
 	 	end
-	 	puts selected.inspect
+	 	selected
 	end
 
 	def my_all?
@@ -33,7 +33,7 @@ module Enumerable
 			end
 			
 		end	
-		puts all_pass
+		 all_pass
 	end
 
 
@@ -44,7 +44,7 @@ module Enumerable
  	 			any_true = true
  	 		end
  	 	end
- 	 	puts any_true
+ 		any_true
  	 end
 
  	def my_none?
@@ -54,10 +54,7 @@ module Enumerable
  					none_true = false
  				end
  			end
-
- 			puts none_true
-
-
+				return none_true
  	end 
 
 
@@ -76,9 +73,7 @@ module Enumerable
  				end
  			end
 
- 			puts count 
-
-
+ 			count 
  	end	
 
  	def my_map
@@ -86,9 +81,7 @@ module Enumerable
  			self.my_each do  |i|
  				map_return<<(yield(i))
  			end	
-
- 			puts map_return.inspect
-
+ 			 map_return
  	end
 
 #my_map takes proc - will take a proc or block not sure 
@@ -107,7 +100,7 @@ module Enumerable
  			
  			end
  		end	 	
- 			puts map_return.inspect
+ 		 map_return
 
  	end
 
@@ -118,48 +111,13 @@ module Enumerable
  		my_each { |i| total = yield(total, i)}    #not sure why my solution wasn't
  																								#working had to copy someone else
  																								#has problems with 1st element
- 		puts total
- 	end		
- 	
-
- 	
-
-
+ 		total
+ 	end	
 end
 
 def multiply_els(array)
  		array.my_inject { |arg,x| arg * x }  
 
- 	end	
+end	
 
 
-#######TESTS################
-puts "!!!my_each test!!!"
-[1,2,6].my_each do |x|
-	puts x
-end
-puts "!!!my_each_with_index test!!!"
-[1,2,6].my_each_with_index { |x, i| puts "the index is #{i} and the element is #{x}"}
-puts "!!!my_select test!!!"
-[1,2,6].my_select do |item|
-	item%2 ==0
-end
-puts "!!!my_all test!!!"
-[1,2,6].my_all? { |x| x <= 6}
-puts "my_any test"
-[1,2,6].my_any? { |x| x == 6 }
-puts "my_none test"
-[1,2,6].my_none?  { |x| x == 6 }
-puts "my_count test"
-[1,2,6].my_count { |x| x%2 == 0 }  #2
-puts "my_map test"
-[1,2,6].my_map { |x| x+3 }
-puts "my_inject test"
-[1,2,6].my_inject(0) {|sum, x| sum + x}
-puts "multiply_els method test"
-multiply_els([2,4,5])
-
-subtract = Proc.new { |x| x - 7 }
-puts "my_map proc test"
-[1,2,6].my_map subtract
-[1,2,6].my_map {|x| x**x}   

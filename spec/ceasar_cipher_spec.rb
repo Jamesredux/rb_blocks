@@ -34,12 +34,4 @@ RSpec.describe "ceasar cipher" do
 	end
 end
 
-#also check the getinput method
 
-RSpec.describe 'ceasar cipher get input method' do
-	#it asks user for input
-	#it asks user for number
-	#it checks number is correct
-	#it correctly encrypts code
-
-end	
