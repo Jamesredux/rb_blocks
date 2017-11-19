@@ -1,11 +1,9 @@
 
 class Board
-	attr_accessor :name, :squares, :board_mark
+	attr_accessor :name, :squares, :board_mark, :board
 
 	def initialize
 		@squares = {"a"=>" ", "b"=>" ", "c"=>" ", "d"=>" ", "e"=>" ", "f"=>" ", "g"=>" ", "h"=>" ", "i"=>" ",}
-		display_map
-		display_board
 	end
 
 	def display_map
@@ -32,7 +30,8 @@ class Board
 		 			@squares[k] = player_mark
 		 		end
 		 end
-		 	 self.display_board
+		 	self.display_map
+		 	self.display_board
 	end
 
 	def get_square

@@ -1,7 +1,7 @@
 require_relative './board.rb'
 
 class Game 
-	attr_accessor :name, :squares, :board_mark, :player_turn
+	attr_accessor :name, :squares, :board_mark, :game_over, :turn_count, :board
   
 	def initialize
 		@board = Board.new		
@@ -11,6 +11,8 @@ class Game
 	end
 
 	def play_game
+		@board.display_map
+		@board.display_board
 		@board_mark = "X"
 		@player_turn = "Player 1"	
 		while @game_over == false
@@ -19,6 +21,7 @@ class Game
 	end
 
 	def update_board
+		
 		puts "#{player_turn} please choose your square."
 		choice = @board.get_square
 		@board.change_square(choice, @board_mark) 
