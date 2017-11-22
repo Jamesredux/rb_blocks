@@ -4,7 +4,7 @@ require_relative '../lib/board2.rb'
 RSpec.describe Board do 
 	let(:board) { Board.new }
 
-	context 'initialize' do 
+	context '#initialize' do 
 		it 'creates board' do 
 			expect(board).to be_instance_of(Board)
 		end
@@ -18,7 +18,7 @@ RSpec.describe Board do
 		end
 	end
 
-	context '.check_win' do 
+	context '#check_win' do 
 
 		it 'returns false as default' do
 			expect(board.check_win).to eq(false)
@@ -45,7 +45,7 @@ RSpec.describe Board do
 		end
 	end	
 
-	context '.check_draw' do 
+	context '#check_draw' do 
 		it 'returns false by default'do 
 			expect(board.check_draw).to eq(false)
 		end
@@ -66,7 +66,7 @@ RSpec.describe Board do
 		end
 	end
 
-	context '.square_free' do 
+	context '#square_free' do 
 		it 'returns true when square unoccupied' do 
 			expect(board.square_free('a')).to eq(true)
 		end
@@ -74,6 +74,19 @@ RSpec.describe Board do
 		it 'returns false when square is occupied' do
 			board.board_grid[0] = 'x'
 			expect(board.square_free('a')).to eq(false)
+		end
+
+
+	end
+
+	context '#update_grid' do
+		it 'updates based on input' do 
+			board.update_grid('a', 'x')
+			expect(board.board_grid[0]).to eq('x')
+		end
+
+		it 'raises error for incorrect squares' do 
+			expect{board.update_grid('j', 'x')}.to raise_error(TypeError)
 		end
 
 

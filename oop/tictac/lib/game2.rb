@@ -2,12 +2,13 @@ require_relative './board2.rb'
 require_relative './player2.rb'
 
 class Game
+	attr_accessor :player_turn, :game_over, :player_1, :player_2, :board
 
 	def initialize
 		@board = Board.new
 		@game_over = false
 		@player_1 = Player.new
-		@player_2 = Player.new('player 2', 'o')
+		@player_2 = Player.new('Player 2', 'o')
 		@player_turn = @player_1
 	end
 
@@ -31,14 +32,13 @@ class Game
 	end	
 
 	def start_game
-		puts "Welcome to tictactoe. \nChoose one of the squares a..i to place your mark..."
-		
-		play_game
-		
+		puts "Welcome to tictactoe. \nChoose one of the squares a..i to place your mark..."	
+		until @game_over == true
+			play_game		
+		end
 	end
 
 	def play_game
-		until @game_over == true
 			display_map
 			display_board
 			puts "#{@player_turn.player_name} please choose a square."
@@ -47,10 +47,7 @@ class Game
 			winner if @board.check_win
 			game_draw if @board.check_draw
 			switch_player
-			
-		end	
 	end
-
 
 	def get_square
 		square_choice = gets.chomp
@@ -72,7 +69,6 @@ class Game
 				return false
 			end	
 	end
-
 
 	def winner
 		@game_over = true
@@ -96,17 +92,7 @@ class Game
 		end
 	end
 
-
-
-
-
-
-
-
-
-
-
 end	
 
-game = Game.new
-game.start_game
+#game =  Game.new
+#game.start_game
