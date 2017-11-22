@@ -9,10 +9,6 @@ class Board
 	end
 
 
-	def find_grid_index(choice)
-		#method that takes players letter choice and convert it to index of grid and returns that number		
-	end
-
 	def check_win
 		win_lines = [ [@board_grid[0],@board_grid[1],@board_grid[2]],
 									[@board_grid[3],@board_grid[4],@board_grid[5]],
