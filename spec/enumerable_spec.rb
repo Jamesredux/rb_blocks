@@ -1,21 +1,6 @@
 require './enumerable.rb'
 
 
-=begin
-
-Go back to the Advanced Building Blocks Project and 
-write tests for any 6 of the enumerable methods you
- wrote there. In this case, identify several possible 
- 	inputs for each of those functions and test to make 
- 	sure that your implementation of them actually makes
- 	 the tests pass. Be sure to try and cover some of the
- 	  odd edge cases where you can.
-
-
-
-=end
- 	
-
 RSpec.describe Enumerable do
 	let(:array) {[1,2,3,4]}
 	let(:zeroarray) {[0,0,0,0]}
