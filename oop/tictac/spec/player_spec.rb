@@ -1,4 +1,4 @@
-require_relative '../lib/player2.rb'
+require_relative '../lib/player.rb'
 
 RSpec.describe Player do 
 let(:player)  { Player.new }

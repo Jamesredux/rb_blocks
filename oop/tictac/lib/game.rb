@@ -1,5 +1,5 @@
-require_relative './board2.rb'
-require_relative './player2.rb'
+require_relative './board.rb'
+require_relative './player.rb'
 
 class Game
 	attr_accessor :player_turn, :game_over, :player_1, :player_2, :board
