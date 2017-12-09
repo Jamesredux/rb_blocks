@@ -46,7 +46,7 @@ class CeasarCipher
   end
 
 
-
+#tests
 #puts CeasarCipher::encrypt('abc', 3)
 
 #puts CeasarCipher::getinput
