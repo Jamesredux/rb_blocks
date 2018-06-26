@@ -26,9 +26,9 @@ class Mastermind
 	def choose_game
 		input = gets.chomp.downcase
 		if input == "c"
-			@code = get_code
-			computer_solve(@user_code)
-			#puts "*** UNDER CONSTRUCTION ***"
+			#@code = get_code
+			#computer_solve(@user_code)
+			puts "*** UNDER CONSTRUCTION ***"
 		else
 			self.play_game	
 		end
@@ -204,14 +204,6 @@ def computer_solve(code)
 
 end
 
-def computer_guess(code)
-	#12.times do
-		@comp_guess = create_code
-		check_guess(@comp_guess)
-		@guesses_left -= 1
-			#	draw_grid if !@solved
-	#end	
-end
 
 end	
 	
